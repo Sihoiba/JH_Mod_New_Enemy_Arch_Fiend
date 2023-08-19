@@ -31,8 +31,7 @@ register_blueprint "arch_fiend"
 	},
 	lists = {
 		group = "being",
-		{ keywords = { "test" }, weight = 150 },
-		{ 2, keywords = { "dante", "beyond", "demon", "demon1" }, weight = 150, dmin = 22, dmax = 27, },
+		{ 2, keywords = { "dante", "beyond", "demon", "demon1" }, weight = 250, dmin = 22, dmax = 27, },
 		{ 3, keywords = { "dante", "beyond", "demon", "demon1" }, weight = 75, dmin = 23, },
 		{ 5, keywords = { "dante", "swarm", "demon", "demon1" },  weight = 25, dmin = 26, },
 	},
