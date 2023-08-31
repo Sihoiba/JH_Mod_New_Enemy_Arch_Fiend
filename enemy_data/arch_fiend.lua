@@ -11,6 +11,7 @@ register_blueprint "fiend_acidclaws"
 	attributes = {
 		damage      = 10,
 		accuracy    = 30,
+		armor_damage = 3.0,
 		slevel      = { bleed = 3, },
 	},
 	callbacks = {
@@ -31,9 +32,11 @@ register_blueprint "arch_fiend"
 	},
 	lists = {
 		group = "being",
-		{ 2, keywords = { "dante", "beyond", "demon", "demon1" }, weight = 250, dmin = 22, dmax = 27, },
-		{ 3, keywords = { "dante", "beyond", "demon", "demon1" }, weight = 75, dmin = 23, },
-		{ 5, keywords = { "dante", "swarm", "demon", "demon1" },  weight = 25, dmin = 26, },
+		-- { keywords = { "test" }, weight = 150 },
+		-- { keywords = { "callisto", "europa", "demon", "demon1" }, weight = 500, dmin = 1, dmax = 10, },
+		{ 2, keywords = { "dante", "beyond", "demon", "demon1", "hard" }, weight = 250, dmin = 22, dmax = 27, },
+		{ 3, keywords = { "dante", "beyond", "demon", "demon1", "hard" }, weight = 75, dmin = 23, },
+		{ 5, keywords = { "dante", "beyond", "swarm", "demon", "demon1", "hard" },  weight = 25, dmin = 26, },
 	},
 	text = {
 		name      = "arch fiend",
@@ -75,4 +78,60 @@ register_blueprint "arch_fiend"
 			acid = 100,
 		},
 	},
+	data = {
+		nightmare = {
+			id   = "exalted_arch_fiend",
+		},
+	}
+}
+
+register_blueprint "exalted_arch_fiend"
+{
+	blueprint = "arch_fiend",
+	lists = {
+		group = "exalted",
+		weight = 100,
+		dmin   = 5,
+	},
+	text = {
+		name      = "exalted arch fiend",
+		namep     = "exalted arch fiends",
+	},
+	ascii     = {
+		glyph     = "i",
+		color     = LIGHTMAGENTA,
+	},
+	desc = {},
+	callbacks = {
+		on_create = [=[
+		function( self,_,tier )
+			self:attach( "fiend_acidclaws" )
+			if tier > 1 then
+				make_exalted( self, tier, self.data.exalted_traits )
+			end
+		end
+		]=],
+	},
+	attributes = {
+		speed = 1.25,
+		experience_value = 100,
+		health = 60,
+		accuracy = 10,
+	},
+	data = {
+		nightmare = false,
+		exalted_traits = {
+			danger = 6,
+			{ "exalted_kw_unstable", },
+			{ "exalted_kw_hunter", min = 6, },
+			{ "exalted_kw_resilient", tag = "health" },
+			{ "exalted_kw_armored", },
+			{ "exalted_kw_regenerate", tag = "health", min = 6, },
+			{ "exalted_kw_lethal", min = 7, tag = "damage", }, 
+			{ "exalted_kw_deadly", min = 14, tag = "damage", }, 			
+			{ "exalted_kw_fast", min = 14, },
+			{ "exalted_kw_resist", min = 14, },
+		},
+	},
+	inventory = {},
 }
