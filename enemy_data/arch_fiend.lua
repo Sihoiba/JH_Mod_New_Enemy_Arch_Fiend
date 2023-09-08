@@ -18,7 +18,7 @@ register_blueprint "fiend_acidclaws"
 		group = "melee",
 		type  = "melee",
 		natural = true,
-		damage_type = "acid",
+		damage_type = "slash",
 		fire_sound = "fiend_melee",
 		hit_sound  = "blunt",
 	},
