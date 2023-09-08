@@ -1,10 +1,24 @@
+register_blueprint "apply_acided"
+{
+	callbacks = {
+		on_damage = [[
+			function ( unused, weapon, who, amount, source )
+				if who and who.data and who.data.can_bleed then
+					local slevel = core.get_status_level( weapon, "acided", source )
+					core.apply_damage_status( who, "acided", "acid", slevel, source )
+				end
+			end
+		]],
+	}
+}
+
 register_blueprint "fiend_acidclaws"
 {
 	weapon = {
 		group = "melee",
 		type  = "melee",
 		natural = true,
-		damage_type = "slash",
+		damage_type = "acid",
 		fire_sound = "fiend_melee",
 		hit_sound  = "blunt",
 	},
@@ -12,12 +26,13 @@ register_blueprint "fiend_acidclaws"
 		damage      = 10,
 		accuracy    = 30,
 		armor_damage = 3.0,
-		slevel      = { bleed = 3, },
+		slevel      = { bleed = 3, acided = 3 },
 	},
 	callbacks = {
 		on_create = [=[
 		function( self )
 			self:attach( "apply_bleed" )
+			self:attach( "apply_acided" )
 		end
 		]=],
 	},	
@@ -32,7 +47,7 @@ register_blueprint "arch_fiend"
 	},
 	lists = {
 		group = "being",
-		-- { keywords = { "test" }, weight = 150 },
+		-- { keywords = { "test2" }, weight = 150 },
 		-- { keywords = { "callisto", "europa", "demon", "demon1" }, weight = 500, dmin = 1, dmax = 10, },
 		{ 2, keywords = { "dante", "beyond", "demon", "demon1", "hard" }, weight = 250, dmin = 22, dmax = 27, },
 		{ 3, keywords = { "dante", "beyond", "demon", "demon1", "hard" }, weight = 75, dmin = 23, },
