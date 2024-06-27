@@ -5,7 +5,7 @@ register_blueprint "apply_acided"
             function ( unused, weapon, who, amount, source )
                 if who and who.data and who.data.can_bleed then
                     local slevel = core.get_status_level( weapon, "acided", source )
-                    core.apply_damage_status( who, "acided", "acid", slevel, source )
+                    core.apply_damage_status( who, "acided", "acid", slevel, source, true, 200 )
                 end
             end
         ]],
@@ -47,7 +47,7 @@ register_blueprint "arch_fiend"
     },
     lists = {
         group = "being",
-        -- { keywords = { "test2" }, weight = 150 },
+        -- { keywords = { "test5" }, weight = 150 },
         -- { keywords = { "callisto", "europa", "demon", "demon1" }, weight = 500, dmin = 1, dmax = 10, },
         { 2, keywords = { "dante", "beyond", "demon", "demon1", "hard" }, weight = 250, dmin = 22, dmax = 27, },
         { 3, keywords = { "dante", "beyond", "demon", "demon1", "hard" }, weight = 75, dmin = 23, },
